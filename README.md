@@ -1,3 +1,68 @@
+# Vue - DRF
+
+## 1. 기본 설정
+
+1. Django
+
+   1. 가상환경 설정
+
+      ```bash
+      $ python -V
+      3.7.5
+      $ pyhton -m venv venv
+      $ source venv/Scripts/activate
+      (venv) $
+      ```
+
+   2. 패키지 설치
+
+      ```bash
+      $ pip install django djangorestframework
+      $ pip freeze > requirements.txt
+      ```
+
+   3. django 프로젝트 생성
+
+      ```bash
+      $ django-admin startproject {프로젝트명} .
+      ```
+
+      
+
+2. Vue
+
+   1. VueCli 설치
+
+      ```bash
+      $ npm install -g @vue/cli
+      ```
+
+   2. Vue 프로젝트 생성
+
+      ```bash
+      $ vue create {프로젝트 이름}
+      ```
+
+3. 프로젝트 폴더 구조
+
+   ```bash
+   todo-django-vue/
+   	.git/
+   	todo django/
+   		venv/
+   		manage.py
+   		todo_django/
+   	todo-vue/
+   		node_moduels/
+   		public/
+   		src/
+   		package.json
+   ```
+
+
+
+# 내가 정리
+
 * vue 설치한 적 없다면 아래와 같이 설치
   * -g: global 옵션
 
@@ -54,4 +119,28 @@ $ git rm --cached -r todo-django/
 ```
 
 
+
+* git add
+
+```bash
+$ git add README.md
+$ git add .gitignore
+$ git add todo-django
+$ git commit -m 'Django | Init project'
+$ git add todo-vue
+$ git commit -m 'Vue | Init Vue'
+
+```
+
+
+
+* 가상환경 다시 실행
+
+pip list해서 django랑 djangorestframework 안깔려있으면 설치
+
+
+
+## todo_django
+
+todos 앱 만들고 등록
 
