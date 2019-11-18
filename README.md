@@ -61,6 +61,24 @@
 
 
 
+## 2. DRF 모델링
+
+## 3. Vue
+
+### Vue-router
+
+```bash
+$ npm i vue-router
+$ vue add router
+> Still proceed?
+> y
+> Use history mode for router? (Requires proper server setup for index fallback in production)
+> y
+
+```
+
+
+
 # 내가 정리
 
 * vue 설치한 적 없다면 아래와 같이 설치
@@ -143,4 +161,37 @@ pip list해서 django랑 djangorestframework 안깔려있으면 설치
 ## todo_django
 
 todos 앱 만들고 등록
+
+
+
+## todo_vue
+
+```bash
+$ npm fund
+$ npm i vue-router
+$ vue add router
+```
+
+* router/index.js의 const routes에 경로를 설정
+
+  ```js
+  // 경로 설정
+  const routes = [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    }
+  ]
+  ```
+
+  
 
