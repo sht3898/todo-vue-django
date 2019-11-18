@@ -158,7 +158,7 @@ pip list해서 django랑 djangorestframework 안깔려있으면 설치
 
 
 
-## todo_django
+## todo_django 현택
 
 todos 앱 만들고 등록
 
@@ -195,3 +195,18 @@ $ vue add router
 
   
 
+* axios 설치
+
+  ```bash
+  $ npm i axios # i는 install의 약자
+  ```
+
+* package.json에서 no-console 수정
+
+  ```json
+  "rules": {
+        "no-console": "off"
+      },
+  ```
+
+  
