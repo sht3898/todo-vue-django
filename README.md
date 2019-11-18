@@ -162,7 +162,18 @@ pip list해서 django랑 djangorestframework 안깔려있으면 설치
 
 todos 앱 만들고 등록
 
+* [cors]( https://github.com/adamchainz/django-cors-headers )
 
+  ```bash
+  $ pip install django-cors-headers
+  $ pip freeze > requirements.txt
+  ```
+
+  ```python
+  # INSTALLED_APPS에 추가
+  ```
+
+  
 
 ## todo_vue
 
@@ -207,6 +218,51 @@ $ vue add router
   "rules": {
         "no-console": "off"
       },
+  ```
+
+
+
+* TodoList.vue에서 설정
+
+  ```vue
+  <template>
+      <div class="todo-list">
+          <h2>투두</h2>
+          <ul>
+              <li v-for="todo in todos" :key="todo.id">
+                  {{todo.title}} {{todo.user}}
+              </li>
+          </ul>
+      </div>
+  </template>
+  
+  <script>
+  export default {
+      name: 'TodoList',
+      props: {
+          //
+          todos: {
+              type: Array,
+              required: true
+          }
+      }
+  }
+  </script>
+  
+  <style>
+  
+  </style>
+  ```
+
+* Home.vue 설정
+
+  ```vue
+  <template>
+    <div class="home">
+      <img alt="Vue logo" src="../assets/logo.png">
+      <TodoList :todos=todos></TodoList>
+    </div>
+  </template>
   ```
 
   
