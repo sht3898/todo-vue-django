@@ -387,3 +387,23 @@ $ vue add router
 
   * 아이디 입력해서 자신의 토큰 값 확인
   * 복사해서 [https://jws.io](https://jws.io) 에서 저장된 정보 확인 가능(디코딩)
+
+
+
+* vue session 설치
+
+  ```bash
+  $ npm i vue-session
+  ```
+
+  * vue session은 자동으로 등록이 안되어서 수동으로 등록해야함
+
+    ```js
+    // main.js
+    
+    import VueSession from 'vue-session'
+    
+    Vue.use(VueSession)
+    ```
+
+    
