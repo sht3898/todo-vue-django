@@ -192,7 +192,43 @@ $ pip install djangorestframework-jwt
       this.$session.set('jwt', token)
       ```
 
-      
+### 3) 활용
+
+1. axios 요청시마다 아래의 `options`을 포함하여 전송
+
+   ```js
+   this.$session.start()
+         const token = this.$session.get('jwt')
+         const options = {
+           headers: {
+             Authorization: `JWT ${token}` // JWT 다음에 공백있음.
+           }
+         }
+   ```
+
+### 4) 사용자 정보 활용
+
+> 사용자 정보를 활용하고 싶다면, token을 디코딩하여 활용한다.
+
+1. 패키지 설치
+
+```bash
+$ npm i jwt-decode
+```
+
+2. 활용
+
+   ```javascript
+   import jwtDecode from 'jwt-decode'
+   this.$session.start()
+   const token = this.$session.get('jwt')
+   console.log(jwtDecode(token))
+   // {user_id: 1, username: "sht3898", exp: 1574138721, email: "sehyunteg@naver.com"}
+   ```
+
+## 7. User별 Todo
+
+
 
 
 
