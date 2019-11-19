@@ -3,7 +3,7 @@
         <h2>투두</h2>
         <ul>
             <li v-for="todo in todos" :key="todo.id">
-                {{todo.title}} {{todo.user}}
+                {{todo.title}}
             </li>
         </ul>
     </div>

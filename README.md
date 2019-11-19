@@ -141,6 +141,28 @@ $ vue add router
 
 
 
+## 6. 로그인 기능
+
+> JWT(Json Web Token): 토큰 기반 로그인 인증
+>
+> 1. 클라이언트(Vue) 로그인 정보(username, password)를 서버(Django)로 전송
+> 2. 서버는 해당 정보를 바탕으로 Token을 발급 및 암호화
+> 3. 클라이언트는 Token을 받아서 매 요청 때마다 헤더에 해당 Token 정보를 추가해서 보냄
+> 4. 서버에서는 매번 Token이 유효한지 확인
+> 5. 클라이언트는 전송된 값을 디코딩하여 사용자 정보 활용
+>
+> JWT는 기본적으로 헤더, Payload, Verify signature로 구성된다.
+>
+> https://jwt.io에서 직접 디코딩을 해볼 수 있다.
+
+## 1) Django
+
+```bash
+$ pip install djangorestframework-jwt
+```
+
+[Github 참고]( https://jpadilla.github.io/django-rest-framework-jwt/ )
+
 
 
 
@@ -358,3 +380,10 @@ $ vue add router
   ```
 
   
+
+* 개인 토큰 확인
+
+  [링크]( http://127.0.0.1:8000/api-token-auth/ )
+
+  * 아이디 입력해서 자신의 토큰 값 확인
+  * 복사해서 [https://jws.io](https://jws.io) 에서 저장된 정보 확인 가능(디코딩)
