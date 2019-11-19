@@ -155,13 +155,44 @@ $ vue add router
 >
 > https://jwt.io에서 직접 디코딩을 해볼 수 있다.
 
-## 1) Django
+### 1) Django
 
 ```bash
 $ pip install djangorestframework-jwt
 ```
 
 [Github 참고]( https://jpadilla.github.io/django-rest-framework-jwt/ )
+
+### 2) Vue
+
+1. 로그인 관련 컴포넌트 생성
+
+2. 이벤트를 통해 axios 요청
+
+3. token 값 저장
+
+   1. `vue-session`
+
+      ```bash
+      $ npm i vue-session
+      ```
+
+   2. `src/main.js`
+
+      ```javascript
+      import VueSession from 'vue-session'
+      
+      Vue.use(VueSession)
+      ```
+
+   3. `vue-session` 활용하여 저장
+
+      ```javascript
+      this.$session.start()
+      this.$session.set('jwt', token)
+      ```
+
+      
 
 
 
@@ -276,8 +307,9 @@ todos 앱 만들고 등록
   
   => CORS 정책(헤더) 때문
   
+
 Vue - Django API 서버간의 전달
-  
+
   ```python
   # CORS
   CORS_ORIGIN_ALLOW_ALL = True    # CORS 모든 도메인에서 허용
@@ -286,7 +318,7 @@ Vue - Django API 서버간의 전달
       # 추후에 배포시 vue에서만 요청 보낼 수 있도록 정의!!
   ]
   ```
-  
+
   
 
 ## todo_vue

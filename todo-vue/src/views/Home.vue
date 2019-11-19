@@ -50,7 +50,15 @@ export default {
       })
     },
     getTodos() {
-      axios.get('http://127.0.0.1:8000/api/v1/todos/')
+      // axios 요청시마다 헤더를 추가해서 보내야 함
+      this.$session.start()
+      const token = this.$session.get('jwt')
+      const options = {
+        headers: {
+          Authorization: `JWT ${token}` // JWT 다음에 공백있음.
+        }
+      }
+      axios.get('http://127.0.0.1:8000/api/v1/todos/', options)
     .then(response => {
       console.log(response) // 만약, 오류가 발생하게 되면 ESLint 설정을 package.json에 설치
       this.todos = response.data
