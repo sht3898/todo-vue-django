@@ -228,6 +228,12 @@ $ npm i jwt-decode
 
 ## 7. User별 Todo
 
+### 1. Django
+
+### 2. Vue
+
+## 8. 비로그인시 로그인 페이지로 이동
+
 
 
 
@@ -475,3 +481,9 @@ $ vue add router
     ```
 
     
+
+* [mounted vs updated]( https://kr.vuejs.org/v2/guide/instance.html )
+  * mounted : 렌더링 되는 시점
+  * updated : mounted된 상태에서 
+
+ ![vue lifecycle에 대한 이미지 검색결과](https://joshua1988.github.io/vue-camp/assets/img/lifecycle.dcbe29f6.png) 
