@@ -10,8 +10,9 @@
 
 <script>
 // @ is an alias to /src, src경로는 @로 표시
-import axios from 'axios'
-import jwtDecode from 'jwt-decode'
+import axios from 'axios' // import requests와 유사
+// import jwtDecode from 'jwt-decode'
+import { mapGetters } from 'vuex' // from bs4 import BeautifulSoup와 유사
 import router from '../router'
 
 import TodoList from '@/components/TodoList.vue'
@@ -30,29 +31,45 @@ export default {
     }
 
   },
+  computed: {
+    // spread 문법
+    ...mapGetters(
+      [
+        'options',
+        'user'
+      ]
+    )
+    // options() {
+    //   return this.$store.getters.options
+    // },
+    // user() {
+    //   return this.$store.getters.user
+    // }
+  },
   methods: {
     todoCreate(title) {
       console.log('==부모컴포넌트==')
       console.log(title)
       // axios 요청 POST /todos/
-      this.$session.start()
-      const token = this.$session.get('jwt')
-      const options = {
-        headers: {
-          Authorization: `JWT ${token}` // JWT 다음에 공백있음.
-        }
-      }
-      console.log(jwtDecode(token))
+      // this.$session.start()
+      // const token = this.$session.get('jwt')
+      // const options = {
+      //   headers: {
+      //     Authorization: `JWT ${token}` // JWT 다음에 공백있음.
+      //   }
+      // }
+      // console.log(jwtDecode(token))
       // {user_id: 1, username: "sht3898", exp: 1574138721, email: "sehyunteg@naver.com"}
       const data = {
         title: title,
-        user: jwtDecode(token).user_id  // decording 해서 user에 저장
+        // user: jwtDecode(token).user_id  // decording 해서 user에 저장
+        user: this.user
       }
       // request.POST인 경우는 반드시 FormData!
       // const formData = new FormData()
       // formData.append('title', title)
       // formData.append('user', 1)
-      axios.post('http://127.0.0.1:8000/api/v1/todos/', data, options)
+      axios.post('http://127.0.0.1:8000/api/v1/todos/', data, this.options)
       .then(response => {
         console.log(response)
         this.todos.push(response.data)
@@ -63,14 +80,14 @@ export default {
     },
     getTodos() {
       // axios 요청시마다 헤더를 추가해서 보내야 함
-      this.$session.start()
-      const token = this.$session.get('jwt')
-      const options = {
-        headers: {
-          Authorization: `JWT ${token}` // JWT 다음에 공백있음.
-        }
-      }
-      axios.get(`http://127.0.0.1:8000/api/v1/users/${jwtDecode(token).user_id}/`, options)
+      // this.$session.start()
+      // const token = this.$session.get('jwt')
+      // const options = {
+      //   headers: {
+      //     Authorization: `JWT ${token}` // JWT 다음에 공백있음.
+      //   }
+      // }
+    axios.get(`http://127.0.0.1:8000/api/v1/users/${this.user}/`, this.options) // 여기서 user = user_id
     .then(response => {
       console.log(response) // 만약, 오류가 발생하게 되면 ESLint 설정을 package.json에 설치
       this.todos = response.data.todo_set
@@ -84,6 +101,9 @@ export default {
       // session에 jwt가 없다면, 즉 토큰이 없다면, 비로그인이라면,
       if (!this.$session.has('jwt')){
         router.push('/login')
+      } else {
+        // 로그인 되어있다면, vuex token 업데이트
+        this.$store.dispatch('login', this.$session.get('jwt'))
       }
     }
   },

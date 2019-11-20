@@ -234,9 +234,26 @@ $ npm i jwt-decode
 
 ## 8. 비로그인시 로그인 페이지로 이동
 
+## 9. delete, update
 
+## 10. Vuex
 
+> Vuex는 Vue에서 활용하는 상태 관리 패턴이다.
 
+## 핵심 개념
+
+1. `state` : 상태, Vue 컴포넌트 상에서 `data`
+   * 직접 변경이 불가능하고, 항상 `mutation`를 통해 변경한다.
+   * `state`가 변경되면 view(화면)가 업데이트 된다.
+2. `mutation` : `state`를 변경하기 위한 `methods`
+   * `mutation` 함수는 첫번째 인자로 항상 `state`를 받는다.
+   * `mutation` 함수는 항상 `commit`을 통해 호출된다.
+3. `action` : 비동기 처리를 하는 `methods`, `mutation`도 호출 가능하다. (`state` 변화를 `mutation`, `commit`을 통해 가능하다.)
+   * `action` 함수는 첫번째 인자로 항상 `context`를 받는다.
+     * `state`, `commit`, `dispatch`, ...
+   * `action` 함수는 항상 `dispatch`를 통해 호출된다.
+4. `getters`: Vue component 상에서의 `computed`
+   * 일반적인 `state` 값을 활용하는 변수의 경우 `getters`에 정의한다.
 
 
 
@@ -490,7 +507,7 @@ $ vue add router
 
 
 
-### method
+## method
 
 GET - 가지고 오는 거시: dataX
 
@@ -499,3 +516,155 @@ POST - 등록 저장: data O
 PUT - 수정: data O
 
 DELETE - 삭제: data X, 리소스(url)
+
+
+
+## git
+
+* message 수정
+
+  ```bash
+  $ git commit --ammend
+  ```
+
+* 강제로 push 덮어쓰기
+
+  ```bash
+  $ git push -f origin master
+  ```
+
+
+
+## token
+
+* [비 부모-자식간 통신]( [https://kr.vuejs.org/v2/guide/components.html#%EB%B9%84-%EB%B6%80%EB%AA%A8-%EC%9E%90%EC%8B%9D%EA%B0%84-%ED%86%B5%EC%8B%A0](https://kr.vuejs.org/v2/guide/components.html#비-부모-자식간-통신) )
+* [flux 아키텍쳐]( https://haruair.github.io/flux/docs/overview.html )로 관리
+
+* vue에서의 flux 역할이 vuex
+* vuex => 상태관리
+  * state : data
+  * mutations(변이): methods
+  * actions: methods(비동기)
+  * getters: computed
+
+
+
+## Vuex
+
+* npm 설치
+
+  ```bash
+  $ npm i vuex
+  $ vue add vuex
+  # y
+  
+  ```
+
+* store에 moduels 폴더 생성
+
+* index.js 수정
+
+  ```js
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  import auth from './moduels/auth' // auth 모듈 추가
+  
+  Vue.use(Vuex)
+  
+  export default new Vuex.Store({
+    // state, mutations, actions 주석 처리  
+    // state: {	
+    // },
+    // mutations: {
+    // },
+    // actions: {
+    // },
+    modules: {
+      auth  // 모듈 추가
+    }
+  })
+  
+  ```
+
+* moduels/auth.js
+
+  ```js
+  // state : data와 유사
+  const state = {
+      token: null
+  }
+  // mutations : state를 변화시키기 위한 메서드(함수)
+  const mutations = {
+      // 첫번째 인자는 무적권 state
+      // 이후 인자는 payload(즉, 그냥 매개변수)
+      setToken(state, token) {
+          state.token = token
+      }
+  }
+  
+  const actions = {
+      // 첫번째 인자는 context (다양한)
+      // 이후 인자는 payload(임의의 매개변수 값)
+      login(context, token) {
+          // mutation 호출 -> commit
+          context.commit('setToken', token)
+      }
+  }
+  
+  const getters = {   // TodoList.vue에서 가져옴
+      options(state) {
+          return {
+              headers: {
+                  Authorization: `JWT ${state.token}`
+              }
+          }
+      }
+  }
+  
+  export default {
+      state,
+      mutations,
+      actions,
+      getters
+  }
+  ```
+
+* LoginForm.vue에서 login할때 기능추가
+
+  ```js
+  methods: {
+          login() {
+              axios.post('http://127.0.0.1:8000/api-token-auth/', this.credentials)
+              .then(response => {
+                  ...
+                  // vuex actions 호출 -> dispatch
+                  this.$store.dispatch('login', token)
+              })
+              )
+          }
+      }
+  ```
+
+* 설정후 vue에서 로그인할때 살펴보면 setToken이 생성
+
+  ![image-20191120101034522](C:\Users\student\Desktop\바탕화면정리\sht\TIL\vue\todo-vue-django\1.png)
+
+* auth.js에서 logout 기능도 추가
+
+  ```js
+  logout(context) {
+          context.commit('setToken', null)
+      }
+  ```
+
+* App.vue에서 logout 기능 추가
+
+  ```js
+  logout() {
+        this.$session.destroy()
+        this.$store.dispatch('logout')
+        router.push('/login')
+      }
+  ```
+
+  
