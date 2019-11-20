@@ -63,7 +63,7 @@ export default {
             //     'title': todo.title,
             //     'is_completed': todo.is_completed
             // }
-            axios.put(`http://127.0.0.1/api/v1/todos/${todo.id}/`, todo, options)
+            axios.put(`http://127.0.0.1:8000/api/v1/todos/${todo.id}/`, todo, options)
             .then(response => {
                 console.log(response)
             })
