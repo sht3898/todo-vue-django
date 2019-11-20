@@ -487,3 +487,15 @@ $ vue add router
   * updated : mounted된 상태에서 
 
  ![vue lifecycle에 대한 이미지 검색결과](https://joshua1988.github.io/vue-camp/assets/img/lifecycle.dcbe29f6.png) 
+
+
+
+### method
+
+GET - 가지고 오는 거시: dataX
+
+POST - 등록 저장: data O
+
+PUT - 수정: data O
+
+DELETE - 삭제: data X, 리소스(url)
